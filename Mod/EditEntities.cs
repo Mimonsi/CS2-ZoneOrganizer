@@ -104,11 +104,11 @@ namespace ZoneOrganizer.Mod
 					}
 					if (zonePrefab.name.Contains(" Row") || zonePrefab.name.Contains(" Medium"))
 					{
-						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "High Density Residential", "Media/Game/Icons/ZoneResidentialHigh.svg", "Medium Density Residential");
+						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Medium Density Residential", "Media/Game/Icons/ZoneResidentialMedium.svg", "Low Density Residential");
 					}
 					else if (zonePrefab.name.Contains(" High") || zonePrefab.name.Contains(" LowRent"))
 					{
-						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Medium Density Residential", "Media/Game/Icons/ZoneResidentialMedium.svg", "Low Density Residential");
+						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "High Density Residential", "Media/Game/Icons/ZoneResidentialHigh.svg", "Medium Density Residential");
 					}
 					else if (zonePrefab.name.Contains(" Low"))
 					{

@@ -27,7 +27,10 @@ Thanks to **Irasponsible** for the mod idea
 	<!--Thumbnail-->
 	<Thumbnail Value="Properties/Thumbnail500.png" />
 	<!--Screenshot, can be set multiple times-->
-	<Screenshot Value="Properties/image1.jpg" />
+	<Screenshot Value="Properties/Low.png" />
+	<Screenshot Value="Properties/Medium.png" />
+	<Screenshot Value="Properties/High.png" />
+	<Screenshot Value="Properties/Mixed.png" />
 	<!--Tag, can be set multiple times-->
 	<Tag Value="Code Mod" />
 	<!--Link to the forum post where the mod can be discussed-->
