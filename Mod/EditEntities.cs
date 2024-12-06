@@ -12,18 +12,18 @@ namespace ZoneOrganizer.Mod
 	{
 		internal static void SetupEditEntities()
 		{
-			EntityQueryDesc loggerQuery = new EntityQueryDesc
-			{
-				All =
-				[
-
-				],
-				Any =
-				[
-					ComponentType.ReadOnly<UIAssetMenuData>(),
-					ComponentType.ReadOnly<UIAssetCategoryData>(),
-				]
-			};
+			// EntityQueryDesc loggerQuery = new EntityQueryDesc
+			// {
+			// 	All =
+			// 	[
+			//
+			// 	],
+			// 	Any =
+			// 	[
+			// 		ComponentType.ReadOnly<UIAssetMenuData>(),
+			// 		ComponentType.ReadOnly<UIAssetCategoryData>(),
+			// 	]
+			// };
 
 			EntityQueryDesc markerObjectsEntityQueryDesc = new EntityQueryDesc
 			{
@@ -37,8 +37,8 @@ namespace ZoneOrganizer.Mod
 
 				]
 			};
-			ExtraLib.AddOnEditEnities(new(LoggerQuery, loggerQuery));
-			ExtraLib.AddOnEditEnities(new(OnEditMarkerObjectEntities, markerObjectsEntityQueryDesc));
+			// ExtraLib.AddOnEditEnities(new(LoggerQuery, loggerQuery));
+			ExtraLib.AddOnEditEnities(new(OnEditZonePrefabEntities, markerObjectsEntityQueryDesc));
 		}
 
 		private static void Log(string message)
@@ -46,35 +46,35 @@ namespace ZoneOrganizer.Mod
 			ZoneOrganizer.Logger.Info(message);
 		}
 
-		private static void LoggerQuery(NativeArray<Entity> entities)
-		{
-			foreach (Entity entity in entities)
-			{
-				/*if (ExtraLib.m_PrefabSystem.TryGetPrefab(entity, out UIAssetMenuPrefab prefab1))
-				{
-					if (prefab1 != null)
-						ENA.Logger.Info("Menu: " + prefab1.name);
-				}*/
+		// private static void LoggerQuery(NativeArray<Entity> entities)
+		// {
+		// 	foreach (Entity entity in entities)
+		// 	{
+		// 		/*if (ExtraLib.m_PrefabSystem.TryGetPrefab(entity, out UIAssetMenuPrefab prefab1))
+		// 		{
+		// 			if (prefab1 != null)
+		// 				ENA.Logger.Info("Menu: " + prefab1.name);
+		// 		}*/
+		//
+		// 		if (ExtraLib.m_PrefabSystem.TryGetPrefab(entity, out UIAssetCategoryPrefab prefab2))
+		// 		{
+		// 			if (prefab2 != null)
+		// 			{
+		// 				Log("Category: " + prefab2.name);
+		// 				try
+		// 				{
+		// 					var zoneData = ExtraLib.m_PrefabSystem.GetComponentData<ZoneData>(prefab2);
+		// 					Log("Zone Index: " + zoneData.m_ZoneType.m_Index);
+		// 				}
+		// 				catch (Exception x)
+		// 				{}
+		// 			}
+		// 		}
+		//
+		// 	}
+		// }
 
-				if (ExtraLib.m_PrefabSystem.TryGetPrefab(entity, out UIAssetCategoryPrefab prefab2))
-				{
-					if (prefab2 != null)
-					{
-						ZoneOrganizer.Logger.Info("Category: " + prefab2.name);
-						try
-						{
-							var zoneData = ExtraLib.m_PrefabSystem.GetComponentData<ZoneData>(prefab2);
-							ZoneOrganizer.Logger.Info("Zone Index: " + zoneData.m_ZoneType.m_Index);
-						}
-						catch (Exception x)
-						{}
-					}
-				}
-
-			}
-		}
-
-		private static void OnEditMarkerObjectEntities(NativeArray<Entity> entities)
+		private static void OnEditZonePrefabEntities(NativeArray<Entity> entities)
 		{
 			PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Low Density Residential","Media/Game/Icons/ZoneResidentialLow.svg");
 			PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Medium Density Residential", "Media/Game/Icons/ZoneResidentialMedium.svg", "Low Density Residential");
@@ -89,7 +89,7 @@ namespace ZoneOrganizer.Mod
 					continue;
 				}
 
-				ZoneOrganizer.Logger.Info("Name: " + zonePrefab.name);
+				//Log("Name: " + zonePrefab.name);
 				var prefabUI = zonePrefab.GetComponent<UIObject>();
 				prefabUI.m_Group?.RemoveElement(entity);
 
