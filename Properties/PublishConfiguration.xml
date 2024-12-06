@@ -1,68 +1,33 @@
 ﻿<Publish>
 	<!--Id must be set in order to update existed mod. it is not required for publishing mod for the first time-->
-	<ModId Value="77175" />
+	<ModId Value="" />
 	<!--Name of the mod to display to players-->
-	<DisplayName Value="Extra Networks and Areas" />
+	<DisplayName Value="Zone Organizer" />
 	<!--Short description of the mod-->
-	<ShortDescription Value="This mod adds Invisible Roads, Custom Park Areas and Integrated Stops directly into the Game UI" />
+	<ShortDescription Value="This mod splits residential zones into additional categories; Low, Medium, High and Mixed" />
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<!--LongDescription Value="This is a long description" /-->
 	<LongDescription>
-# Extra Networks and Areas
-This mod adds Invisible Roads, Custom Park Areas and Integrated Stops directly into the Game UI.
-
-## Features
-### Integrated Stations
-This Mod adds integrated stations to the Transportation tab. These stations are invisible markers that can be used to create your own custom Bus Terminals, Train Stations and much more.
-
-### Invisible Roads and Custom Parking Lots
-This mod adds all available invisible paths and roads to the User Interface. This includes the possibility to create custom parking lots without having to use developer tools.
-
-#### Warning
-Please be careful using invisible roads and spaces. There have been issues reported in the past where invisible roads caused game crashes or corrupt save games. Make sure to enable autosave and save your game often.
-
-### Spaces and Areas
-Spaces and Areas are used by your Cims to determine where they can walk, spend their free time in a park, or hang out. This previously needed access to developer tools, but now you can create them directly from the terraforming tab.
-
-### Animal Spawners
-This game has invisible animal spawners that can be used to periodically spawn animals of various types. They are found in the terraforming tab. I have heard of a player using these spawners in combination with a Walking area to create a zoo, but I never tested it myself.
-
-## Feature roadmap
-- Feel free to suggest more features!
+# Zone Organizer
+This mod splits residential zones into additional categories; Low, Medium, High and Mixed
 
 ## Requirements
 - Extra Lib
 - l18N Everywhere (for localization)
 
-- Anarchy (Optional, useful for placing paths)
-- Better Bulldozer (Optional, useful for destroying paths and markers)
-
 ## Acknowledgment
-Many people helped me in the creation of this mod. Especially I would like to thank
-* **Kasperekdk** for providing this stunning image of their custom train station.
-* **CityRat** for various custom icons.
-* **Tigon ologdrin** for the original icons of all spawner types.
-* **Chamëleon TBN** for the new icons of all prefabs.
-* **Triton Supreme** for detailed support with the prefab system.
-* **89-pleasure** for helping me with the very first steps of modding.
-* **Yenyang** for the help and modding templates.
+Thanks to **Irasponsible** for the mod idea
 	</LongDescription>
 	<!--Thumbnail-->
 	<Thumbnail Value="Properties/Thumbnail500.png" />
 	<!--Screenshot, can be set multiple times-->
-	<Screenshot Value="Properties/custom_station.jpg" />
-	<Screenshot Value="Properties/wallpaper.png" />
 	<Screenshot Value="Properties/image1.jpg" />
-	<Screenshot Value="Properties/image2.jpg" />
-	<Screenshot Value="Properties/image3.jpg" />
-	<Screenshot Value="Properties/image4.jpg" />
-	<Screenshot Value="Properties/image5.jpg" />
 	<!--Tag, can be set multiple times-->
 	<Tag Value="Code Mod" />
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/extra-networks-and-areas.1654938/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.2.1" />
+	<ModVersion Value="1.0.0" />
 	<!--Recommended version of the base game to use the mod-->
 	<GameVersion Value="1.1.*" />
 	<!--Dependency for the mod, can be set multiple times-->
@@ -72,11 +37,10 @@ Many people helped me in the creation of this mod. Especially I would like to th
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<!--<ChangeLog Value="" />-->
 	<ChangeLog>
-- Water Stops are now displayed in the water transportation tab
-- Fixed Seagull Spawner localization
+- Initial Release
 	</ChangeLog>
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
-	<ExternalLink Type="github" Url="https://github.com/kosch104/CS2-ExtraNetworksAndAreas" />
+	<ExternalLink Type="github" Url="https://github.com/kosch104/CS2-ZoneOrganizer" />
 	<ExternalLink Type="discord" Url="https://discord.gg/vd7HXnpPJf" />
 	<ExternalLink Type="paypal" Url="https://www.paypal.com/paypalme/KonstantinSchwarze" />
 </Publish>

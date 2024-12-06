@@ -53,14 +53,6 @@
 		<None Include="$(ModTargetsFile)" Link="Properties\Mod.targets" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Resources\Icons\TrackPrefab\" />
-	</ItemGroup>
-
-  <Target Name="BuildUI" BeforeTargets="AfterBuild">
-    <Exec Command="npm run build" WorkingDirectory="$(ProjectDir)/UI" />
-  </Target>
-
   <Target Name="GetAdditionalFiles" AfterTargets="DeployWIP">
     <ItemGroup>
       <AdditionalFilesToDeploy Include="$(AdditionalFilesDirectory)\**\*.*" />
