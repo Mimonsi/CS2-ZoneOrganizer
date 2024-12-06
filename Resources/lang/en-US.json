@@ -1,0 +1,8 @@
+{
+  "SubServices.NAME[Low Density Residential]": "Low Density Residential",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Residential]": "Low Density Residential Zones",
+  "SubServices.NAME[Medium Density Residential]": "Medium Density Residential",
+  "Assets.SUB_SERVICE_DESCRIPTION[Medium Density Residential]": "Medium Density Residential Zones",
+  "SubServices.NAME[High Density Residential]": "High Density Residential",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Residential]": "High Density Residential Zones"
+}
