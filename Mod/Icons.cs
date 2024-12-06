@@ -5,7 +5,7 @@ namespace ZoneOrganizer.Mod
 {
     internal class Icons
     {
-        internal const string IconsResourceKey = "extranetworksandareas";
+        internal const string IconsResourceKey = "zoneorganizer";
         internal static readonly string COUIBaseLocation = $"coui://{IconsResourceKey}";
 
         public static readonly string Placeholder = $"{COUIBaseLocation}/Icons/Misc/placeholder.svg";

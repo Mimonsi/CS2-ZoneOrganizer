@@ -59,12 +59,5 @@
     </ItemGroup>
     <Copy SourceFiles="@(AdditionalFilesToDeploy)" DestinationFiles="@(AdditionalFilesToDeploy->'$(DeployDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
-
-  <Target Name="CopyUIFiles" AfterTargets="DeployWIP">
-    <ItemGroup>
-      <UIFiles Include="bin\UI\**\*.*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(UIFiles)" DestinationFiles="@(UIFiles->'$(DeployDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
-  </Target>
   
 </Project>
