@@ -24,11 +24,8 @@ namespace ZoneOrganizer.Mod
 
             if (File.Exists($"{ZoneOrganizer.ResourcesIcons}/{prefab.GetType().Name}/{prefab.name}.svg"))
             {
-                //ENA.Logger.Info($"Found icon in mod folder: {ENA.ResourcesIcons}/{prefab.GetType().Name}/{prefab.name}.svg");
                 return $"{COUIBaseLocation}/Icons/{prefab.GetType().Name}/{prefab.name}.svg";
             }
-
-            //ENA.Logger.Info($"Did not find icon in mod folder: {ENA.ResourcesIcons}/{prefab.GetType().Name}/{prefab.name}.svg");
 
             if (prefab is UIAssetCategoryPrefab)
             {

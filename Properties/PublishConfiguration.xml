@@ -9,7 +9,13 @@
 	<!--LongDescription Value="This is a long description" /-->
 	<LongDescription>
 # Zone Organizer
-This mod splits residential zones into additional categories; Low, Medium, High and Mixed
+This mod splits residential zones into additional categories:
+- Low Density Residential
+- Medium Density Residential
+- High Density Residential
+- Mixed Housing
+
+## Features
 
 ## Requirements
 - Extra Lib
