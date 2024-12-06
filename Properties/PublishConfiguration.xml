@@ -15,17 +15,18 @@ This mod splits residential zones into additional categories:
 - High Density Residential
 - Mixed Housing
 
-## Features
-
 ## Requirements
 - Extra Lib
 - l18N Everywhere (for localization)
+
+## Known issues
+- Asset Icon Library always overwrites the zone icons when installed
 
 ## Acknowledgment
 Thanks to **Irasponsible** for the mod idea
 	</LongDescription>
 	<!--Thumbnail-->
-	<Thumbnail Value="Properties/Thumbnail500.png" />
+	<Thumbnail Value="Properties/Thumbnail.png" />
 	<!--Screenshot, can be set multiple times-->
 	<Screenshot Value="Properties/Low.png" />
 	<Screenshot Value="Properties/Medium.png" />
