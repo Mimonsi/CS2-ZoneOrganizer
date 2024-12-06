@@ -1,18 +1,18 @@
-﻿using Colossal.Logging;
+﻿using System.IO;
+using System.Linq;
+using Colossal.Logging;
 using Extra.Lib.Debugger;
 using Game;
 using Game.Modding;
 using Game.SceneFlow;
 using HarmonyLib;
-using System.IO;
-using System.Linq;
-using ExtraNetworksAndAreas.Mod;
+using ZoneOrganizer.Mod;
 
-namespace ExtraNetworksAndAreas
+namespace ZoneOrganizer
 {
-	public class ENA : IMod
+	public class ZoneOrganizer : IMod
 	{
-		private static readonly ILog log = LogManager.GetLogger($"{nameof(ExtraNetworksAndAreas)}").SetShowsErrorsInUI(false);
+		private static readonly ILog log = LogManager.GetLogger($"{nameof(ZoneOrganizer)}").SetShowsErrorsInUI(false);
 		internal static Logger Logger { get; private set; } = new(log, false);
 
 		internal static string ResourcesIcons { get; private set; }
@@ -34,10 +34,10 @@ namespace ExtraNetworksAndAreas
 			EditEntities.SetupEditEntities();
 			Icons.LoadIcons(fileInfo.DirectoryName);
 
-			harmony = new($"{nameof(ExtraNetworksAndAreas)}.{nameof(ENA)}");
-			harmony.PatchAll(typeof(ENA).Assembly);
+			harmony = new($"{nameof(ZoneOrganizer)}.{nameof(ZoneOrganizer)}");
+			harmony.PatchAll(typeof(ZoneOrganizer).Assembly);
 			var patchedMethods = harmony.GetPatchedMethods().ToArray();
-			Logger.Info($"Plugin ExtraNetworksAndAreas made patches! Patched methods: " + patchedMethods.Length);
+			Logger.Info($"Plugin ZoneOrganizer made patches! Patched methods: " + patchedMethods.Length);
 			foreach (var patchedMethod in patchedMethods)
 			{
 				Logger.Info($"Patched method: {patchedMethod.Module.Name}:{patchedMethod.Name}");
@@ -48,7 +48,7 @@ namespace ExtraNetworksAndAreas
 		public void OnDispose()
 		{
 			Logger.Info(nameof(OnDispose));
-			harmony.UnpatchAll($"{nameof(ExtraNetworksAndAreas)}.{nameof(ENA)}");
+			harmony.UnpatchAll($"{nameof(ZoneOrganizer)}.{nameof(ZoneOrganizer)}");
 		}
 	}
 }

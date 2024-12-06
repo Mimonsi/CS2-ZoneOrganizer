@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Game.Prefabs;
 
-namespace ExtraNetworksAndAreas.Mod
+namespace ZoneOrganizer.Mod
 {
     internal class Icons
     {
@@ -22,7 +22,7 @@ namespace ExtraNetworksAndAreas.Mod
             if (prefab is null)
                 return $"{COUIBaseLocation}/Icons/Misc/placeholder.svg";
 
-            if (File.Exists($"{ENA.ResourcesIcons}/{prefab.GetType().Name}/{prefab.name}.svg"))
+            if (File.Exists($"{ZoneOrganizer.ResourcesIcons}/{prefab.GetType().Name}/{prefab.name}.svg"))
             {
                 //ENA.Logger.Info($"Found icon in mod folder: {ENA.ResourcesIcons}/{prefab.GetType().Name}/{prefab.name}.svg");
                 return $"{COUIBaseLocation}/Icons/{prefab.GetType().Name}/{prefab.name}.svg";

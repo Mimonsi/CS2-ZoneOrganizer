@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using Extra.Lib;
 using Extra.Lib.Helper;
-using Game.Net;
 using Game.Prefabs;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace ExtraNetworksAndAreas.Mod
+namespace ZoneOrganizer.Mod
 {
 	internal static class EditEntities
 	{
@@ -25,8 +24,6 @@ namespace ExtraNetworksAndAreas.Mod
 					ComponentType.ReadOnly<UIAssetCategoryData>(),
 				]
 			};
-			ExtraLib.AddOnEditEnities(new(LoggerQuery, loggerQuery));
-
 
 			EntityQueryDesc markerObjectsEntityQueryDesc = new EntityQueryDesc
 			{
@@ -40,30 +37,13 @@ namespace ExtraNetworksAndAreas.Mod
 
 				]
 			};
-
+			ExtraLib.AddOnEditEnities(new(LoggerQuery, loggerQuery));
 			ExtraLib.AddOnEditEnities(new(OnEditMarkerObjectEntities, markerObjectsEntityQueryDesc));
-
-
-
 		}
 
 		private static void Log(string message)
 		{
-			ENA.Logger.Info(message);
-		}
-
-		private static string GetIcon(PrefabBase prefab)
-		{
-			Dictionary<string, string> overrideIcons = new()
-			{
-				{ "Oneway Tram Track - Inside", "Media/Game/Icons/OnewayTramTrack.svg" },
-				{ "Twoway Subway Track", "Media/Game/Icons/TwoWayTrainTrack.svg" },
-			};
-			if (overrideIcons.TryGetValue(prefab.name, out string icon))
-			{
-				return icon;
-			}
-			return Icons.GetIcon(prefab);
+			ZoneOrganizer.Logger.Info(message);
 		}
 
 		private static void LoggerQuery(NativeArray<Entity> entities)
@@ -80,11 +60,11 @@ namespace ExtraNetworksAndAreas.Mod
 				{
 					if (prefab2 != null)
 					{
-						ENA.Logger.Info("Category: " + prefab2.name);
+						ZoneOrganizer.Logger.Info("Category: " + prefab2.name);
 						try
 						{
 							var zoneData = ExtraLib.m_PrefabSystem.GetComponentData<ZoneData>(prefab2);
-							ENA.Logger.Info("Zone Index: " + zoneData.m_ZoneType.m_Index);
+							ZoneOrganizer.Logger.Info("Zone Index: " + zoneData.m_ZoneType.m_Index);
 						}
 						catch (Exception x)
 						{}
@@ -108,7 +88,7 @@ namespace ExtraNetworksAndAreas.Mod
 					continue;
 				}
 
-				ENA.Logger.Info("Name: " + zonePrefab.name);
+				ZoneOrganizer.Logger.Info("Name: " + zonePrefab.name);
 				var prefabUI = zonePrefab.GetComponent<UIObject>();
 				prefabUI.m_Group?.RemoveElement(entity);
 
