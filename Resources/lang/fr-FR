@@ -1,0 +1,10 @@
+{
+  "SubServices.NAME[Low Density Residential]": "Logement à faible densité",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Residential]": "Les zones résidentielles de logements à faible densité sont constituées de maisons unifamiliales avec de grandes cours.",
+  "SubServices.NAME[Medium Density Residential]": "Logement à densité moyenne",
+  "Assets.SUB_SERVICE_DESCRIPTION[Medium Density Residential]": "Les zones résidentielles de logements de moyenne densité sont constituées de maisons mitoyennes, de maisons de ville et de petits immeubles d'habitation.",
+  "SubServices.NAME[High Density Residential]": "Logement à densité élevée",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Residential]": "Les zones résidentielles de logements à densité élevée sont constituées de gratte-ciel avec logements et d'appartements à loyer modéré.",
+  "SubServices.NAME[Mixed Housing]": "Logement mixte",
+  "Assets.SUB_SERVICE_DESCRIPTION[Mixed Housing]": "Les zones de logements mixtes sont un mélange de bâtiments résidentiels et commerciaux, avec des magasins et des restaurants au rez-de-chaussée et des appartements au-dessus."
+}
