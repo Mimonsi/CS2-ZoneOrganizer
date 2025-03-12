@@ -91,7 +91,7 @@ namespace ZoneOrganizer.Mod
 
 				//Log("Name: " + zonePrefab.name);
 				var prefabUI = zonePrefab.GetComponent<UIObject>();
-				prefabUI.m_Group?.RemoveElement(entity);
+				//prefabUI.m_Group?.RemoveElement(entity);
 
 				//if (prefab.name == "")
 
@@ -100,18 +100,22 @@ namespace ZoneOrganizer.Mod
 					// Zone name filter heavily inspired by Find It by T.D.W. (https://github.com/JadHajjar/FindIt-CSII)
 					if (zonePrefab.name.Contains(" Mixed"))
 					{
+						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Mixed Housing", "Media/Game/Icons/ZoneResidentialMixed.svg", "High Density Residential");
 					}
 					if (zonePrefab.name.Contains(" Row") || zonePrefab.name.Contains(" Medium"))
 					{
+						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Medium Density Residential", "Media/Game/Icons/ZoneResidentialMedium.svg", "Low Density Residential");
 					}
 					else if (zonePrefab.name.Contains(" High") || zonePrefab.name.Contains(" LowRent"))
 					{
+						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "High Density Residential", "Media/Game/Icons/ZoneResidentialHigh.svg", "Medium Density Residential");
 					}
 					else if (zonePrefab.name.Contains(" Low"))
 					{
+						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Low Density Residential", "Media/Game/Icons/ZoneResidentialLow.svg");
 					}
 				}
