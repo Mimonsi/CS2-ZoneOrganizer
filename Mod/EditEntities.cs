@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Extra.Lib;
 using Extra.Lib.Helper;
 using Game.Prefabs;
+using Game.UI.Editor;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
 namespace ZoneOrganizer.Mod
 {
