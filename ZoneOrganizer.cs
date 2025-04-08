@@ -6,7 +6,7 @@ using Unity.Entities;
 
 namespace ZoneOrganizer
 {
-	public class ZoneOrganizer : IMod
+	public class Mod : IMod
 	{
 		public static readonly ILog log = LogManager.GetLogger($"{nameof(ZoneOrganizer)}").SetShowsErrorsInUI(false);
 
@@ -21,6 +21,7 @@ namespace ZoneOrganizer
 			World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>();
 			
 
+            World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>().Enabled = true;
 		}
 
 		public void OnDispose()
