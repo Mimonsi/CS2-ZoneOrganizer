@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using Colossal.Entities;
-using Colossal.IO.AssetDatabase;
-using Colossal.Json;
 using Colossal.Logging;
 using Colossal.Serialization.Entities;
 using Game;
-using Game.Economy;
 using Game.Prefabs;
-using Game.SceneFlow;
-using Game.UI.InGame;
+using Game.Zones;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
 namespace ZoneOrganizer
 {
-
-
 	public enum ZoneTypeFilter
 	{
 		Any = 0,
-		Low = 1,
-		Row = 2,
-		Medium = 4,
-		High = 8,
+		ResiLow = 1,
+		ResiRow = 2,
+		ResiMedium = 4,
+		ResiHigh = 8,
 		Mixed = 16,
+        CommLow = 32,
+        CommHigh = 64,
+        OfficeLow = 128,
+        OfficeHigh = 256,
 	}
 
     public class AssetMenuData
@@ -63,13 +61,7 @@ namespace ZoneOrganizer
 						ComponentType.ReadOnly<ZoneData>(),
 					}
 			});
-
-			//GameManager.instance.RegisterUpdater(Init);
 		}
-
-		private void Init()
-		{
-        }
 
 		public void CollectData()
 		{
@@ -194,64 +186,130 @@ namespace ZoneOrganizer
             {
 				var zone = entity;
 				if (EntityManager.TryGetComponent(zone, out PrefabData prefabData) && _prefabSystem.TryGetPrefab(prefabData, out PrefabBase prefabBase) &&
-                _prefabSystem.TryGetComponentData(prefabBase, out ZonePropertiesData info))
+                _prefabSystem.TryGetComponentData(prefabBase, out ZonePropertiesData zoneProp) &&
+                _prefabSystem.TryGetComponentData(prefabBase, out ZoneData zoneData))
                 {
-                    string zoneName = _prefabSystem.GetPrefabName(zone);
-					if (info.m_ResidentialProperties <= 0f)
+                    //string zoneName = _prefabSystem.GetPrefabName(zone);
+					ZoneDensity zd = Game.Buildings.PropertyUtils.GetZoneDensity(zoneData, zoneProp);
+
+                    if (zoneData.m_AreaType == AreaType.Residential)
                     {
-#if DEBUG
-                        Log.Info($"{zoneName} is skipped");
-#endif
-                        continue;
-					}
-
-					if (!info.m_ScaleResidentials)
-					{
-						dictionary[zone] = ZoneTypeFilter.Low;
+                        switch (zd)
+                        {
+                            case ZoneDensity.Low:
+                                dictionary[zone] = ZoneTypeFilter.ResiLow;
+                                break;
+                            case ZoneDensity.Medium:
+                                if (!(zoneProp.m_AllowedSold.ToString() == "NoResource" &&
+                                    zoneProp.m_AllowedManufactured.ToString() == "NoResource"
+                                    && zoneProp.m_AllowedStored.ToString() == "NoResource"))
+                                {
+                                    dictionary[zone] = ZoneTypeFilter.Mixed;
+                                    break;
+                                }
+                                dictionary[zone] = ZoneTypeFilter.ResiMedium;
+                                break;
+                            case ZoneDensity.High:
+                                dictionary[zone] = ZoneTypeFilter.ResiHigh;
+                                break;
+                            default:
+                                break;
+                        }
                         ProcessMovingAssets(entity);
-#if DEBUG
-                        Log.Info($"{zoneName} set to Low");
-#endif
-                        continue;
-					}
-
-					if (info.m_ResidentialProperties / info.m_SpaceMultiplier < 1f)
-					{
-                        //var isRowHousing = true;
-
-                        //for (var j = 0; j < spawnableBuildings.Length; j++)
-                        //{
-                        //	if (spawnableBuildings[j].m_ZonePrefab == zone && buildingsData[j].m_LotSize.x >= 2)
-                        //	{
-                        //		isRowHousing = false;
-                        //		break;
-                        //	}
-                        //}
-
-                        //dictionary[zone] = isRowHousing ? ZoneTypeFilter.Row : ZoneTypeFilter.Medium;
-
-						if (!(info.m_AllowedSold.ToString() == "NoResource" && info.m_AllowedManufactured.ToString() == "NoResource" && info.m_AllowedStored.ToString() == "NoResource"))
-						{
-							dictionary[zone] = ZoneTypeFilter.Mixed;
-                            ProcessMovingAssets(entity);
-#if DEBUG
-                            Log.Info($"{zoneName} set to Mixed");
-#endif
-                            continue;
-						}
-
-                            dictionary[zone] = ZoneTypeFilter.Medium;
-                        ProcessMovingAssets(entity);
-#if DEBUG
-                        Log.Info($"{zoneName} set to Medium");
-#endif
-                        continue;
                     }
-					dictionary[zone] = ZoneTypeFilter.High;
-                    ProcessMovingAssets(entity);
-#if DEBUG
-                    Log.Info($"{zoneName} set to High");
-#endif
+                    else if (zoneData.m_AreaType == AreaType.Commercial)
+                    {
+                        switch (zd)
+                        {
+                            case ZoneDensity.Low:
+                                dictionary[zone] = ZoneTypeFilter.CommLow;
+                                break;
+                            case ZoneDensity.High:
+                                dictionary[zone] = ZoneTypeFilter.CommHigh;
+                                break;
+                            default:
+                                break;
+                        }
+                        ProcessMovingAssets(entity);
+                    }
+                    else
+                    {
+                        if (zoneData.m_AreaType != AreaType.Industrial)
+                        {
+                            continue;
+                        }
+                        if (!zoneData.IsOffice())
+                        {
+                            continue;
+                        }
+                        switch (zd)
+                        {
+                            case ZoneDensity.Low:
+                                dictionary[zone] = ZoneTypeFilter.OfficeLow;
+                                break;
+                            case ZoneDensity.High:
+                                dictionary[zone] = ZoneTypeFilter.OfficeHigh;
+                                break;
+                            default:
+                                break;
+                        }
+                        ProcessMovingAssets(entity);
+                    }
+                    //					if (zoneProp.m_ResidentialProperties <= 0f)
+                    //                    {
+                    //#if DEBUG
+                    //                        Log.Info($"{zoneName} is skipped");
+                    //#endif
+                    //                        continue;
+                    //					}
+
+                    //					if (!zoneProp.m_ScaleResidentials)
+                    //					{
+                    //						dictionary[zone] = ZoneTypeFilter.Low;
+                    //                        ProcessMovingAssets(entity);
+                    //#if DEBUG
+                    //                        Log.Info($"{zoneName} set to Low");
+                    //#endif
+                    //                        continue;
+                    //					}
+
+                    //					if (zoneProp.m_ResidentialProperties / zoneProp.m_SpaceMultiplier < 1f)
+                    //					{
+                    //                        //var isRowHousing = true;
+
+                    //                        //for (var j = 0; j < spawnableBuildings.Length; j++)
+                    //                        //{
+                    //                        //	if (spawnableBuildings[j].m_ZonePrefab == zone && buildingsData[j].m_LotSize.x >= 2)
+                    //                        //	{
+                    //                        //		isRowHousing = false;
+                    //                        //		break;
+                    //                        //	}
+                    //                        //}
+
+                    //                        //dictionary[zone] = isRowHousing ? ZoneTypeFilter.Row : ZoneTypeFilter.Medium;
+
+                    //						if (!(zoneProp.m_AllowedSold.ToString() == "NoResource" && zoneProp.m_AllowedManufactured.ToString() == "NoResource" && zoneProp.m_AllowedStored.ToString() == "NoResource"))
+                    //						{
+                    //							dictionary[zone] = ZoneTypeFilter.Mixed;
+                    //                            ProcessMovingAssets(entity);
+                    //#if DEBUG
+                    //                            Log.Info($"{zoneName} set to Mixed");
+                    //#endif
+                    //                            continue;
+                    //						}
+
+                    //                            dictionary[zone] = ZoneTypeFilter.Medium;
+                    //                        ProcessMovingAssets(entity);
+                    //#if DEBUG
+                    //                        Log.Info($"{zoneName} set to Medium");
+                    //#endif
+                    //                        continue;
+                    //                    }
+                    //					dictionary[zone] = ZoneTypeFilter.High;
+                    //                    ProcessMovingAssets(entity);
+                    //#if DEBUG
+                    //                    Log.Info($"{zoneName} set to High");
+                    //#endif
                 }
             }
 
@@ -274,23 +332,38 @@ namespace ZoneOrganizer
             ZoneTypeFilter ztf = GetZoneType(entity);
 			Entity tab = Entity.Null;
 
-            if (ztf.Equals(ZoneTypeFilter.Low))
+            if (ztf.Equals(ZoneTypeFilter.ResiLow))
             {
                 tab = CreateUIAssetCategoryPrefab("Low Density Residential", "Zones", "Media/Game/Icons/ZoneResidentialLow.svg", 1);
             }
-			else if (ztf.Equals(ZoneTypeFilter.Medium))
+			else if (ztf.Equals(ZoneTypeFilter.ResiMedium))
             {
-                tab =
-            CreateUIAssetCategoryPrefab("Medium Density Residential", "Zones",
+                tab = CreateUIAssetCategoryPrefab("Medium Density Residential", "Zones",
                 "Media/Game/Icons/ZoneResidentialMedium.svg", 2);
             }
-            else if (ztf.Equals(ZoneTypeFilter.High))
+            else if (ztf.Equals(ZoneTypeFilter.ResiHigh))
 			{
 				tab = CreateUIAssetCategoryPrefab("High Density Residential", "Zones", "Media/Game/Icons/ZoneResidentialHigh.svg", 3);
             }
             else if (ztf.Equals(ZoneTypeFilter.Mixed))
             {
                 tab = CreateUIAssetCategoryPrefab("Mixed Housing", "Zones", "Media/Game/Icons/ZoneResidentialMixed.svg", 4);
+            }
+            else if (ztf.Equals(ZoneTypeFilter.CommLow))
+            {
+                tab = CreateUIAssetCategoryPrefab("Low Density Business", "Zones", "Media/Game/Icons/ZoneCommercialLow.svg", 5);
+            }
+            else if (ztf.Equals(ZoneTypeFilter.CommHigh))
+            {
+                tab = CreateUIAssetCategoryPrefab("High Density Business", "Zones", "Media/Game/Icons/ZoneCommercialHigh.svg", 6);
+            }
+            else if (ztf.Equals(ZoneTypeFilter.OfficeLow))
+            {
+                tab = CreateUIAssetCategoryPrefab("Low Density Office", "Zones", "Media/Game/Icons/ZoneOfficeLow.svg", 31);
+            }
+            else if (ztf.Equals(ZoneTypeFilter.OfficeHigh))
+            {
+                tab = CreateUIAssetCategoryPrefab("High Density Office", "Zones", "Media/Game/Icons/ZoneOfficeHigh.svg", 32);
             }
 
             if (tab == Entity.Null) return;
