@@ -6,7 +6,7 @@ using Unity.Entities;
 
 namespace ZoneOrganizer
 {
-	public class ZoneOrganizer : IMod
+	public class Mod : IMod
 	{
 		public static readonly ILog log = LogManager.GetLogger($"{nameof(ZoneOrganizer)}").SetShowsErrorsInUI(false);
 
@@ -18,9 +18,12 @@ namespace ZoneOrganizer
 
 			log.Info($"Current mod asset at {asset.path}");
 
-			World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>();
-			
+            foreach (var item in new LocaleHelper("ZoneOrganizer.Locale.json").GetAvailableLanguages())
+            {
+                GameManager.instance.localizationManager.AddSource(item.LocaleId, item);
+            }
 
+            World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>().Enabled = true;
 		}
 
 		public void OnDispose()
