@@ -12,7 +12,7 @@ namespace ZoneOrganizer
 {
 	public class ZoneOrganizer : IMod
 	{
-		private static readonly ILog log = LogManager.GetLogger($"{nameof(ZoneOrganizer)}").SetShowsErrorsInUI(false);
+		public static readonly ILog log = LogManager.GetLogger($"{nameof(ZoneOrganizer)}").SetShowsErrorsInUI(false);
 		internal static Logger Logger { get; private set; } = new(log, false);
 
 		internal static string ResourcesIcons { get; private set; }

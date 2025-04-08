@@ -103,7 +103,7 @@ namespace ZoneOrganizer.Mod
 						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Mixed Housing", "Media/Game/Icons/ZoneResidentialMixed.svg", "High Density Residential");
 					}
-					if (zonePrefab.name.Contains(" Row") || zonePrefab.name.Contains(" Medium"))
+					else if (zonePrefab.name.Contains(" Row") || zonePrefab.name.Contains(" Medium"))
 					{
 						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Medium Density Residential", "Media/Game/Icons/ZoneResidentialMedium.svg", "Low Density Residential");
@@ -117,6 +117,10 @@ namespace ZoneOrganizer.Mod
 					{
 						prefabUI.m_Group?.RemoveElement(entity);
 						prefabUI.m_Group = PrefabsHelper.GetOrCreateUIAssetCategoryPrefab("Zones", "Low Density Residential", "Media/Game/Icons/ZoneResidentialLow.svg");
+					}
+					else
+					{
+						ZoneOrganizer.log.Info("Residential zone name not recognized: " + zonePrefab.name);
 					}
 				}
 				/*else
