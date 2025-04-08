@@ -18,8 +18,10 @@ namespace ZoneOrganizer
 
 			log.Info($"Current mod asset at {asset.path}");
 
-			World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>();
-			
+            foreach (var item in new LocaleHelper("ZoneOrganizer.Locale.json").GetAvailableLanguages())
+            {
+                GameManager.instance.localizationManager.AddSource(item.LocaleId, item);
+            }
 
             World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>().Enabled = true;
 		}
