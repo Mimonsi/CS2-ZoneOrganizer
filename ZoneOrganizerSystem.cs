@@ -61,7 +61,9 @@ namespace ZoneOrganizer
 						ComponentType.ReadOnly<ZoneData>(),
 					}
 			});
-		}
+
+			Enabled = true;
+        }
 
 		public void CollectData()
 		{
@@ -348,11 +350,11 @@ namespace ZoneOrganizer
             }
             else if (ztf.Equals(ZoneTypeFilter.CommLow))
             {
-                tab = CreateUIAssetCategoryPrefab("Low Density Business", "Zones", "Media/Game/Icons/ZoneCommercialLow.svg", 5);
+                tab = CreateUIAssetCategoryPrefab("Low Density Commercial", "Zones", "Media/Game/Icons/ZoneCommercialLow.svg", 5);
             }
             else if (ztf.Equals(ZoneTypeFilter.CommHigh))
             {
-                tab = CreateUIAssetCategoryPrefab("High Density Business", "Zones", "Media/Game/Icons/ZoneCommercialHigh.svg", 6);
+                tab = CreateUIAssetCategoryPrefab("High Density Commercial", "Zones", "Media/Game/Icons/ZoneCommercialHigh.svg", 6);
             }
             else if (ztf.Equals(ZoneTypeFilter.OfficeLow))
             {

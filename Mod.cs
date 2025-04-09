@@ -23,7 +23,8 @@ namespace ZoneOrganizer
                 GameManager.instance.localizationManager.AddSource(item.LocaleId, item);
             }
 
-            World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>().Enabled = true;
+            var zoneOrganizerSystem = World.DefaultGameObjectInjectionWorld.GetOrCreateSystemManaged<ZoneOrganizerSystem>();
+            // TODO: Add settings to enable separation
 		}
 
 		public void OnDispose()
