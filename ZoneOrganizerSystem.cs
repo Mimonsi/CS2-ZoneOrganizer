@@ -126,12 +126,12 @@ namespace ZoneOrganizer
 
 		protected override void OnUpdate()
 		{
-			//int x = 3;
-			//int y = 3;
+
 		}
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
             base.OnGameLoadingComplete(purpose, mode);
+            Mod.log.Info("Loading complete");
             CollectData();
             IndexZones();
             //EditZones();
@@ -179,8 +179,7 @@ namespace ZoneOrganizer
 			//var spawnableBuildings = buildingsQuery.ToComponentDataArray<SpawnableBuildingData>(Allocator.Temp);
 
 			var dictionary = new Dictionary<Entity, ZoneTypeFilter>();
-
-            //for (var i = 0; i < zones.Length; i++)
+			
             var entities = _zoneQuery.ToEntityArray(Allocator.Temp);
             foreach (Entity entity in entities)
             {
@@ -420,9 +419,7 @@ namespace ZoneOrganizer
 				if (tabName == moverName)
 				{
 					uiGroupElementbuffer.RemoveAt(i);
-#if DEBUG
-                    Log.Info($"Removing {itemName} from {tabNameOld}");
-#endif
+                    Log.Debug($"Removing {itemName} from {tabNameOld}");
                     break;
 				}
 			}
@@ -430,9 +427,7 @@ namespace ZoneOrganizer
 			var tabNameNew = _prefabSystem.GetPrefabName(newCat);
 			EntityManager.GetBuffer<UIGroupElement>(newCat).Add(new UIGroupElement(moverEntity));
 			EntityManager.GetBuffer<UnlockRequirement>(newCat).Add(new UnlockRequirement(moverEntity, UnlockFlags.RequireAny));
-#if DEBUG
-			Log.Info($"Adding {itemName} to {tabNameNew}");
-#endif
+			Log.Debug($"Adding {itemName} to {tabNameNew}");
 		}
     }
 }

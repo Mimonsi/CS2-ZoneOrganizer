@@ -60,12 +60,6 @@
 		</Reference>
   </ItemGroup>
 
-  <ItemGroup><!--PackageReference Include="Lib.Harmony" Version="2.2.2" /-->
-	  <!--PackageReference Include="UnityEngine.Modules" Version="2022.3.7" IncludeAssets="compile" /-->
-  
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
   <ItemGroup>
 		<Reference Update="System">
 			<Private>false</Private>
