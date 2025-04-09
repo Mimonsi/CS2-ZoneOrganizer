@@ -39,7 +39,7 @@ namespace ZoneOrganizer
 		private EntityQuery _uiAssetMenuDataQuery;
 		//private EntityQuery _uiAssetCategoryDataQuery;
 		private EntityQuery _zoneQuery;
-		private static Dictionary<Entity, ZoneTypeFilter> _zoneTypeCache;
+		private static Dictionary<Entity, ZoneTypeFilter> _zoneTypeCache = new();
 		private static readonly Dictionary<string, Entity> _assetMenuDataDict = new();
 		//private static readonly Dictionary<string, Entity> _assetCatDataDict = new();
         public static AssetMenuData zoneAssetMenuData = new();
@@ -131,7 +131,6 @@ namespace ZoneOrganizer
         protected override void OnGameLoadingComplete(Purpose purpose, GameMode mode)
         {
             base.OnGameLoadingComplete(purpose, mode);
-            Mod.log.Info("Loading complete");
             CollectData();
             IndexZones();
             //EditZones();
@@ -149,12 +148,12 @@ namespace ZoneOrganizer
 				_prefabSystem.TryGetPrefab(prefabData, out PrefabBase roadMenu);
 
 				menuPrefab.m_Menu = roadMenu.GetComponent<UIAssetMenuPrefab>();
-				var MenuUI = menuPrefab.AddComponent<UIObject>();
-				MenuUI.m_Icon = icon;
-				MenuUI.m_Priority = priority;
-				MenuUI.active = true;
-				MenuUI.m_IsDebugObject = false;
-				MenuUI.m_Group = null;
+				var menuUI = menuPrefab.AddComponent<UIObject>();
+				menuUI.m_Icon = icon;
+				menuUI.m_Priority = priority;
+				menuUI.active = true;
+				menuUI.m_IsDebugObject = false;
+				menuUI.m_Group = null;
 				_prefabSystem.AddPrefab(menuPrefab);
 				tab = menuPrefab;
 			}
@@ -177,10 +176,9 @@ namespace ZoneOrganizer
 			//	.WithNone<SignatureBuildingData>().Build();
 			//var buildingsData = buildingsQuery.ToComponentDataArray<BuildingData>(Allocator.Temp);
 			//var spawnableBuildings = buildingsQuery.ToComponentDataArray<SpawnableBuildingData>(Allocator.Temp);
-
-			var dictionary = new Dictionary<Entity, ZoneTypeFilter>();
 			
             var entities = _zoneQuery.ToEntityArray(Allocator.Temp);
+            Log.Info("Zone query results: " + entities.Length);
             foreach (Entity entity in entities)
             {
 				var zone = entity;
@@ -188,7 +186,7 @@ namespace ZoneOrganizer
                 _prefabSystem.TryGetComponentData(prefabBase, out ZonePropertiesData zoneProp) &&
                 _prefabSystem.TryGetComponentData(prefabBase, out ZoneData zoneData))
                 {
-                    //string zoneName = _prefabSystem.GetPrefabName(zone);
+                    string zoneName = _prefabSystem.GetPrefabName(zone);
 					ZoneDensity zd = Game.Buildings.PropertyUtils.GetZoneDensity(zoneData, zoneProp);
 
                     if (zoneData.m_AreaType == AreaType.Residential)
@@ -196,20 +194,20 @@ namespace ZoneOrganizer
                         switch (zd)
                         {
                             case ZoneDensity.Low:
-                                dictionary[zone] = ZoneTypeFilter.ResiLow;
+	                            _zoneTypeCache[zone] = ZoneTypeFilter.ResiLow;
                                 break;
                             case ZoneDensity.Medium:
                                 if (!(zoneProp.m_AllowedSold.ToString() == "NoResource" &&
                                     zoneProp.m_AllowedManufactured.ToString() == "NoResource"
                                     && zoneProp.m_AllowedStored.ToString() == "NoResource"))
                                 {
-                                    dictionary[zone] = ZoneTypeFilter.Mixed;
+	                                _zoneTypeCache[zone] = ZoneTypeFilter.Mixed;
                                     break;
                                 }
-                                dictionary[zone] = ZoneTypeFilter.ResiMedium;
+                                _zoneTypeCache[zone] = ZoneTypeFilter.ResiMedium;
                                 break;
                             case ZoneDensity.High:
-                                dictionary[zone] = ZoneTypeFilter.ResiHigh;
+	                            _zoneTypeCache[zone] = ZoneTypeFilter.ResiHigh;
                                 break;
                             default:
                                 break;
@@ -221,10 +219,10 @@ namespace ZoneOrganizer
                         switch (zd)
                         {
                             case ZoneDensity.Low:
-                                dictionary[zone] = ZoneTypeFilter.CommLow;
+	                            _zoneTypeCache[zone] = ZoneTypeFilter.CommLow;
                                 break;
                             case ZoneDensity.High:
-                                dictionary[zone] = ZoneTypeFilter.CommHigh;
+	                            _zoneTypeCache[zone] = ZoneTypeFilter.CommHigh;
                                 break;
                             default:
                                 break;
@@ -244,10 +242,10 @@ namespace ZoneOrganizer
                         switch (zd)
                         {
                             case ZoneDensity.Low:
-                                dictionary[zone] = ZoneTypeFilter.OfficeLow;
+	                            _zoneTypeCache[zone] = ZoneTypeFilter.OfficeLow;
                                 break;
                             case ZoneDensity.High:
-                                dictionary[zone] = ZoneTypeFilter.OfficeHigh;
+	                            _zoneTypeCache[zone] = ZoneTypeFilter.OfficeHigh;
                                 break;
                             default:
                                 break;
@@ -312,7 +310,7 @@ namespace ZoneOrganizer
                 }
             }
 
-			_zoneTypeCache = dictionary;
+			//_zoneTypeCache = dictionary;
 			Log.Info("Zones have been indexed and edited");
         }
 
