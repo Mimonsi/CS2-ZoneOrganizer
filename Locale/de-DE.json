@@ -1,0 +1,25 @@
+﻿{
+  "SubServices.NAME[Low Density Residential]": "Wohngebiet mit geringer Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Residential]": "Wohngebiete mit geringer Dichte bestehen aus Einfamilienhäusern mit großen Gärten.",
+
+  "SubServices.NAME[Medium Density Residential]": "Wohngebiet mit mittlerer Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[Medium Density Residential]": "Wohngebiete mit mittlerer Dichte bestehen aus Reihenhäusern, Stadthäusern und kleinen Mehrfamilienhäusern.",
+
+  "SubServices.NAME[High Density Residential]": "Wohngebiet mit hoher Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Residential]": "Wohngebiete mit hoher Dichte bestehen aus Hochhäusern und günstigen Mietwohnungen.",
+
+  "SubServices.NAME[Mixed Housing]": "Gemischtes Wohngebiet",
+  "Assets.SUB_SERVICE_DESCRIPTION[Mixed Housing]": "Gemischte Wohngebiete kombinieren Wohn- und Geschäftsgebäude, mit Läden und Restaurants im Erdgeschoss und Wohnungen darüber.",
+
+  "SubServices.NAME[Low Density Commercial]": "Gewerbegebiet mit geringer Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Commercial]": "Gewerbegebiete mit geringer Dichte bestehen aus kleinen Läden und Restaurants, meist ein- oder zweigeschossig.",
+
+  "SubServices.NAME[High Density Commercial]": "Gewerbegebiet mit hoher Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Commercial]": "Gewerbegebiete mit hoher Dichte bestehen aus großen Einkaufsgebäuden.",
+
+  "SubServices.NAME[Low Density Office]": "Bürogebiet mit geringer Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Office]": "Bürogebiete mit geringer Dichte bestehen aus kleinen Bürogebäuden, meist ein- oder zweigeschossig.",
+
+  "SubServices.NAME[High Density Office]": "Bürogebiet mit hoher Dichte",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Office]": "Bürogebiete mit hoher Dichte bestehen aus großen Bürogebäuden, teilweise Wolkenkratzern."
+}

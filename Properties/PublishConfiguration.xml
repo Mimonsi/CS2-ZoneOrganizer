@@ -4,7 +4,7 @@
 	<!--Name of the mod to display to players-->
 	<DisplayName Value="Zone Organizer" />
 	<!--Short description of the mod-->
-	<ShortDescription Value="This mod splits residential zones into additional categories; Low, Medium, High and Mixed" />
+	<ShortDescription Value="This mod splits zones into their different densities; Low, Medium, High and Mixed" />
 	<!--Long description of the mod. Single line or multi line. Supports minimal markdown subset-->
 	<!--LongDescription Value="This is a long description" /-->
 	<LongDescription>
@@ -37,9 +37,9 @@ Thanks to **Irasponsible** for the mod idea
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/zone-organizer-mod.1719712/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.0.1" />
+	<ModVersion Value="1.1.0" />
 	<!--Recommended version of the base game to use the mod-->
-	<GameVersion Value="1.1.*" />
+	<GameVersion Value="1.2.*" />
 	<!--Dependency for the mod, can be set multiple times-->
 	<Dependency Id="75724" /> <!-- Extra Lib -->
 	<Dependency Id="75426" /> <!-- l18n Everywhere -->
@@ -47,10 +47,13 @@ Thanks to **Irasponsible** for the mod idea
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<!--<ChangeLog Value="" />-->
 	<ChangeLog>
-		- Initial Release
+- Rework splitting mechanic
+- Fix bug of generic residential Tab being displayed that crashes UI
+- Add German, French and Chinese localization (thanks to **suyin-long**)
 	</ChangeLog>
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="github" Url="https://github.com/kosch104/CS2-ZoneOrganizer" />
-	<ExternalLink Type="discord" Url="https://discord.gg/vd7HXnpPJf" />
+	<ExternalLink Type="discord" Url="https://discord.gg/UkKAfRqfCn" />
 	<ExternalLink Type="paypal" Url="https://www.paypal.com/paypalme/KonstantinSchwarze" />
+	<ExternalLink Type="ko-fi" Url="https://ko-fi.com/mimonsi" />
 </Publish>
