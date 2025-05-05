@@ -1,0 +1,10 @@
+{
+  "SubServices.NAME[Low Density Residential]": "低密度住宅",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Residential]": "低密度住宅区是带有大院子的单户住宅。",
+  "SubServices.NAME[Medium Density Residential]": "中密度住宅",
+  "Assets.SUB_SERVICE_DESCRIPTION[Medium Density Residential]": "中密度住宅区包括排屋、联排别墅和小型公寓楼。",
+  "SubServices.NAME[High Density Residential]": "高密度住宅",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Residential]": "高密度住宅区是指高层公寓楼和低租金公寓。",
+  "SubServices.NAME[Mixed Housing]": "混合住宅",
+  "Assets.SUB_SERVICE_DESCRIPTION[Mixed Housing]": "混合住宅区是住宅和商业建筑的混合体，一楼有商店和餐馆，楼上有公寓。"
+}
