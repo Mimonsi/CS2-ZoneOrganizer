@@ -1,0 +1,18 @@
+{
+  "SubServices.NAME[Low Density Residential]": "Low Density Residential",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Residential]": "Low density residential zones are single family homes with large yards.",
+  "SubServices.NAME[Medium Density Residential]": "Medium Density Residential",
+  "Assets.SUB_SERVICE_DESCRIPTION[Medium Density Residential]": "Medium density residential zones are row houses, townhouses, and small apartment buildings.",
+  "SubServices.NAME[High Density Residential]": "High Density Residential",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Residential]": "High density residential zones are high rise apartment buildings and low rent apartments.",
+  "SubServices.NAME[Mixed Housing]": "Mixed Housing",
+  "Assets.SUB_SERVICE_DESCRIPTION[Mixed Housing]": "Mixed housing zones are a mix of residential and commercial buildings, with shops and restaurants on the ground floor and apartments above.",
+  "SubServices.NAME[Low Density Commercial]": "Low Density Commercial",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Commercial]": "Low Density Commercial zones are small shops and restaurants, usually only one or two stories tall.",
+  "SubServices.NAME[High Density Commercial]": "High Density Commercial",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Commercial]": "High Density Commercial zones are large shopping buildings.",
+  "SubServices.NAME[Low Density Office]": "Low Density Office",
+  "Assets.SUB_SERVICE_DESCRIPTION[Low Density Office]": "Low Density Office zones are small office buildings, usually only one or two stories tall.",
+  "SubServices.NAME[High Density Office]": "High Density Office",
+  "Assets.SUB_SERVICE_DESCRIPTION[High Density Office]": "High Density Office zones are large office buildings, sometimes skyscrapers."
+}
