@@ -37,7 +37,7 @@ Thanks to **Irasponsible** for the mod idea
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/zone-organizer-mod.1719712/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.0.0" />
+	<ModVersion Value="1.0.1" />
 	<!--Recommended version of the base game to use the mod-->
 	<GameVersion Value="1.1.*" />
 	<!--Dependency for the mod, can be set multiple times-->
@@ -47,7 +47,7 @@ Thanks to **Irasponsible** for the mod idea
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<!--<ChangeLog Value="" />-->
 	<ChangeLog>
-- Initial Release
+		- Initial Release
 	</ChangeLog>
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="github" Url="https://github.com/kosch104/CS2-ZoneOrganizer" />
