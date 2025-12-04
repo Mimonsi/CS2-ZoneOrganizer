@@ -15,10 +15,6 @@ This mod splits residential zones into additional categories:
 - High Density Residential
 - Mixed Housing
 
-## Requirements
-- Extra Lib
-- l18N Everywhere (for localization)
-
 ## Known issues
 - Asset Icon Library always overwrites the zone icons when installed
 
@@ -37,19 +33,15 @@ Thanks to **Irasponsible** for the mod idea
 	<!--Link to the forum post where the mod can be discussed-->
 	<ForumLink Value="https://forum.paradoxplaza.com/forum/threads/zone-organizer-mod.1719712/" />
 	<!--Version of the mod-->
-	<ModVersion Value="1.1.0" />
+	<ModVersion Value="1.1.1" />
 	<!--Recommended version of the base game to use the mod-->
-	<GameVersion Value="1.2.*" />
+	<GameVersion Value="1.3.6*" />
 	<!--Dependency for the mod, can be set multiple times-->
-	<Dependency Id="75724" /> <!-- Extra Lib -->
-	<Dependency Id="75426" /> <!-- l18n Everywhere -->
 
 	<!--Change log for new version. Single line or multi line. Supports minimal markdown subset-->
 	<!--<ChangeLog Value="" />-->
 	<ChangeLog>
-- Rework splitting mechanic
-- Fix bug of generic residential Tab being displayed that crashes UI
-- Add German, French and Chinese localization (thanks to **suyin-long**)
+- Recompiled for Patch 1.3.6f1
 	</ChangeLog>
 	<!--External link. supported types are discord, github, youtube, twitch, x, paypal, patreon-->
 	<ExternalLink Type="github" Url="https://github.com/kosch104/CS2-ZoneOrganizer" />
