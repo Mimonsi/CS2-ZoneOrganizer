@@ -29,7 +29,7 @@ namespace ZoneOrganizer
     public class AssetMenuData
     {
         public Dictionary<string, Entity> Menu { get; set; } = new Dictionary<string, Entity>();
-        public Dictionary<string, int> Priority { get; set; } = new Dictionary<string, int>();
+        public Dictionary<string, int> Priority { get; set; } = new();
     }
 
     public partial class ZoneOrganizerSystem : GameSystemBase
@@ -37,9 +37,9 @@ namespace ZoneOrganizer
 		private static ILog Log => Mod.log;
 		private PrefabSystem _prefabSystem;
 		private EntityQuery _uiAssetMenuDataQuery;
-		//private EntityQuery _uiAssetCategoryDataQuery;
 		private EntityQuery _zoneQuery;
-		private static Dictionary<Entity, ZoneTypeFilter> _zoneTypeCache = new();
+		private EntityQuery _signatureBuildingQuery;
+		private static readonly Dictionary<Entity, ZoneTypeFilter> _zoneTypeCache = new();
 		private static readonly Dictionary<string, Entity> _assetMenuDataDict = new();
 		//private static readonly Dictionary<string, Entity> _assetCatDataDict = new();
         public static AssetMenuData zoneAssetMenuData = new();
@@ -48,83 +48,33 @@ namespace ZoneOrganizer
         {
             base.OnCreate();
             _prefabSystem = World.GetOrCreateSystemManaged<PrefabSystem>();
-			_uiAssetMenuDataQuery = GetEntityQuery(new EntityQueryDesc
-				{ All = new[] { ComponentType.ReadWrite<UIAssetMenuData>() } });
+
+			_uiAssetMenuDataQuery = SystemAPI.QueryBuilder().WithAll<UIAssetMenuData>().Build();
+			_zoneQuery = SystemAPI.QueryBuilder().WithAll<ZoneData, UIObjectData>().Build();
+			_signatureBuildingQuery = SystemAPI.QueryBuilder().WithAll<SignatureBuildingData, SpawnableBuildingData, PrefabData>() .Build();
 			//_uiAssetCategoryDataQuery = GetEntityQuery(new EntityQueryDesc
 			//	{ All = new[] { ComponentType.ReadWrite<UIAssetCategoryData>() } });
-			_zoneQuery = GetEntityQuery(new EntityQueryDesc
-			{
-				All =
-					new[]
-					{
-						ComponentType.ReadOnly<UIObjectData>(),
-						ComponentType.ReadOnly<ZoneData>(),
-					}
-			});
 
 			Enabled = true;
         }
 
-		public void CollectData()
+		private void CollectData()
 		{
 			try
 			{
 				var entities = _uiAssetMenuDataQuery.ToEntityArray(Allocator.Temp);
-				foreach (Entity entity in entities)
+				foreach (var entity in entities)
 				{
 					string prefabName = _prefabSystem.GetPrefabName(entity);
-					if (!_assetMenuDataDict.ContainsKey(prefabName))
-					{
-						_assetMenuDataDict.Add(prefabName, entity);
-					}
+					_assetMenuDataDict.TryAdd(prefabName, entity);
 				}
 			}
 			catch (Exception e)
 			{
 				Log.Error(e);
 			}
-
-			//try
-			//{
-			//	var entities = _uiAssetCategoryDataQuery.ToEntityArray(Allocator.Temp);
-			//	foreach (Entity entity in entities)
-			//	{
-			//		_prefabSystem.TryGetPrefab(new PrefabID("UIAssetMenuPrefab", "Zones"), out PrefabBase zonePrefab);
-			//		string prefabName = _prefabSystem.GetPrefabName(entity);
-			//		_prefabSystem.TryGetPrefab(entity, out UIAssetCategoryPrefab uiA);
-			//		if (!_assetCatDataDict.ContainsKey(prefabName) && uiA.m_Menu == (UIAssetMenuPrefab)zonePrefab)
-			//		{
-			//			_assetCatDataDict.Add(prefabName, entity);
-			//                     Log.Info($"Adding {prefabName} to assetCatDataDict");
-			//                 }
-
-			//	}
-			//}
-			//catch (Exception e)
-			//{
-			//	Log.Error(e);
-			//}
+			
 		}
-
-//		private void EditZones()
-//		{
-//			var entities = _zoneQuery.ToEntityArray(Allocator.Temp);
-
-//            foreach (Entity entity in entities)
-//			{
-//				if (_prefabSystem.TryGetPrefab(entity, out ZonePrefab zonePrefab))
-//				{
-//					if (zonePrefab == null)
-//					{
-//						continue;
-//                    }
-//#if DEBUG
-//					Log.Info($"Zone prefab: {zonePrefab.name}");
-//#endif
-
-//                }
-//			}
-//		}
 
 		protected override void OnUpdate()
 		{
@@ -138,7 +88,7 @@ namespace ZoneOrganizer
             //EditZones();
         }
 
-        public Entity CreateUIAssetCategoryPrefab(string name, string group, string icon, int priority)
+        private Entity CreateUIAssetCategoryPrefab(string name, string group, string icon, int priority)
 		{
 
 			if (!_prefabSystem.TryGetPrefab(new PrefabID("UIAssetCategoryPrefab", name), out PrefabBase tab))
@@ -254,61 +204,6 @@ namespace ZoneOrganizer
                         }
                         ProcessMovingAssets(entity);
                     }
-                    //					if (zoneProp.m_ResidentialProperties <= 0f)
-                    //                    {
-                    //#if DEBUG
-                    //                        Log.Info($"{zoneName} is skipped");
-                    //#endif
-                    //                        continue;
-                    //					}
-
-                    //					if (!zoneProp.m_ScaleResidentials)
-                    //					{
-                    //						dictionary[zone] = ZoneTypeFilter.Low;
-                    //                        ProcessMovingAssets(entity);
-                    //#if DEBUG
-                    //                        Log.Info($"{zoneName} set to Low");
-                    //#endif
-                    //                        continue;
-                    //					}
-
-                    //					if (zoneProp.m_ResidentialProperties / zoneProp.m_SpaceMultiplier < 1f)
-                    //					{
-                    //                        //var isRowHousing = true;
-
-                    //                        //for (var j = 0; j < spawnableBuildings.Length; j++)
-                    //                        //{
-                    //                        //	if (spawnableBuildings[j].m_ZonePrefab == zone && buildingsData[j].m_LotSize.x >= 2)
-                    //                        //	{
-                    //                        //		isRowHousing = false;
-                    //                        //		break;
-                    //                        //	}
-                    //                        //}
-
-                    //                        //dictionary[zone] = isRowHousing ? ZoneTypeFilter.Row : ZoneTypeFilter.Medium;
-
-                    //						if (!(zoneProp.m_AllowedSold.ToString() == "NoResource" && zoneProp.m_AllowedManufactured.ToString() == "NoResource" && zoneProp.m_AllowedStored.ToString() == "NoResource"))
-                    //						{
-                    //							dictionary[zone] = ZoneTypeFilter.Mixed;
-                    //                            ProcessMovingAssets(entity);
-                    //#if DEBUG
-                    //                            Log.Info($"{zoneName} set to Mixed");
-                    //#endif
-                    //                            continue;
-                    //						}
-
-                    //                            dictionary[zone] = ZoneTypeFilter.Medium;
-                    //                        ProcessMovingAssets(entity);
-                    //#if DEBUG
-                    //                        Log.Info($"{zoneName} set to Medium");
-                    //#endif
-                    //                        continue;
-                    //                    }
-                    //					dictionary[zone] = ZoneTypeFilter.High;
-                    //                    ProcessMovingAssets(entity);
-                    //#if DEBUG
-                    //                    Log.Info($"{zoneName} set to High");
-                    //#endif
                 }
             }
 
@@ -316,7 +211,7 @@ namespace ZoneOrganizer
 			Log.Info("Zones have been indexed and edited");
         }
 
-		public static ZoneTypeFilter GetZoneType(Entity zoneEntity)
+		private static ZoneTypeFilter GetZoneType(Entity zoneEntity)
 		{
 			if (_zoneTypeCache != null && _zoneTypeCache.TryGetValue(zoneEntity, out var type))
 			{
@@ -326,7 +221,7 @@ namespace ZoneOrganizer
 			return ZoneTypeFilter.Any;
 		}
 
-        public void ProcessMovingAssets(Entity entity)
+		private void ProcessMovingAssets(Entity entity)
         {
             ZoneTypeFilter ztf = GetZoneType(entity);
 			Entity tab = Entity.Null;
@@ -406,7 +301,7 @@ namespace ZoneOrganizer
             
         }
 
-		public void RefreshBuffer(Entity oldCat, Entity newCat, string moverName, Entity moverEntity)
+        private void RefreshBuffer(Entity oldCat, Entity newCat, string moverName, Entity moverEntity)
 		{
 			DynamicBuffer<UIGroupElement> uiGroupElementbuffer = EntityManager.GetBuffer<UIGroupElement>(oldCat);
 
